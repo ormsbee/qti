@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>QTI WASM Proof of Concept</title>
+  </head>
+  <body>
+    <script type="module">
+      import init, {render_qti_as_html} from "./pkg/qti.js";
+
+      function renderQTI() {
+          let qtiInput = document.getElementById("editArea").value;
+          console.log(qtiInput);
+          let htmlOutput = render_qti_as_html(qtiInput);
+          console.log(htmlOutput);
+          document.getElementById("output").innerHTML = htmlOutput;
+      }
+      window.renderQTI = renderQTI;
+
+      init()
+        .then(() => {
+          renderQTI();
+        });
+    </script>
+
+    <div style="display: flex; width: 100%;">
+      <div style="width: 50%;">
+        <form id="editForm">
+          <textarea id="editArea" style="width: 90%; height: 300px;" onkeyup="renderQTI();" onchange="renderQTI();">
+<qti-choice-interaction max-choices="1" min-choices="1" response-identifier="RESPONSE">
+  <qti-simple-choice identifier="A">Epinephrine</qti-simple-choice>
+  <qti-simple-choice identifier="B">Glucagon</qti-simple-choice>
+  <qti-simple-choice identifier="C">Insulin</qti-simple-choice>
+  <qti-simple-choice identifier="D">Oxytocin</qti-simple-choice>
+</qti-choice-interaction>
+         </textarea>
+       </form>
+      </div>
+      <div id="output" style="width: 40%;">
+      <div>
+    </div>
+  </body>
+</html>
